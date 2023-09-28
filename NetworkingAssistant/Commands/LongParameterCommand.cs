@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace NetworkingAssistant.Commands
 {
-    internal class IntegerParameterCommand : CommandBase
+    internal class LongParameterCommand : CommandBase
     {
-        public IntegerParameterCommand(CommandId id) : base(id)
+        public LongParameterCommand(CommandId id) : base(id)
         {
         }
 
@@ -43,10 +43,10 @@ namespace NetworkingAssistant.Commands
                 return;
             }
 
-            int parameter;
-            if (int.TryParse(match.Groups[1].Value, out parameter) == false)
+            long parameter;
+            if (long.TryParse(match.Groups[1].Value, out parameter) == false)
             {
-                Console.WriteLine("Can't parse integer for " + Id);
+                Console.WriteLine("Can't parse long for " + Id);
                 return;
             }
 
@@ -62,9 +62,9 @@ namespace NetworkingAssistant.Commands
             }
         }
 
-        private static async void GetChatList(int limit)
+        private static async void GetChatList(long limit)
         {
-            var list = await TelegramManager.GetChannels(limit);
+            var list = await TelegramManager.GetChannels(Convert.ToInt32(limit));
 
             Console.WriteLine("Chat ID : Chat name");
             for (int i = 0; i < list.Count; i++)
@@ -74,7 +74,7 @@ namespace NetworkingAssistant.Commands
             Console.WriteLine();
         }
 
-        private static async void SelectChat(int id)
+        private static async void SelectChat(long id)
         {
             OperationBuffer.SelectChat(await TelegramManager.GetChannel(id));
         }

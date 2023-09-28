@@ -20,6 +20,8 @@ namespace NetworkingAssistant.Commands
     {
         Stop = 1,
         Help = 2,
+        ShowSelectedChatInfo = 3,
+        SelectAllMessages = 4,
 
         GetChats = 15,
         SelectChat = 16,

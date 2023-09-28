@@ -10,6 +10,7 @@ namespace NetworkingAssistant
         public static string ApplicationVersion { get; private set; }
         public static string ApiHash { get; private set; }
         public static string PhoneNumber { get; private set; }
+        public static string GPTKey { get; private set; }
 
         public static void Load()
         {
@@ -41,6 +42,7 @@ namespace NetworkingAssistant
                 ApplicationVersion = saved.ApplicationVersion;
                 ApiHash = saved.ApiHash;
                 PhoneNumber = saved.PhoneNumber;
+                GPTKey = saved.GPTKey;
                 Console.WriteLine("Config loaded");
             }
             else
@@ -60,6 +62,7 @@ namespace NetworkingAssistant
                 ApiHash = "FILL ME by https://my.telegram.org/apps",
                 PhoneNumber = "Phone number",
                 ApplicationVersion = "0.1",
+                GPTKey = "Fill me",
             };
 
             using (FileStream fs = File.Create(FILE_NAME))
@@ -73,6 +76,7 @@ namespace NetworkingAssistant
             ApplicationVersion = defaultConfig.ApplicationVersion;
             ApiHash = defaultConfig.ApiHash;
             PhoneNumber = defaultConfig.PhoneNumber;
+            GPTKey = defaultConfig.GPTKey;
             Console.WriteLine("Loaded default config. App will not work, visit config.xml file");
 
             Console.WriteLine("Config file created");
@@ -85,6 +89,8 @@ namespace NetworkingAssistant
             public string ApiHash;
             public string ApplicationVersion;
             public string PhoneNumber;
+
+            public string GPTKey;
         }
     }
 }

@@ -132,13 +132,30 @@ namespace NetworkingAssistant
             return result;
         }
 
-        public static async Task<TdApi.Chat> GetChannel(int id)
+        public static async Task<TdApi.Chat> GetChannel(long id)
         {
             try
             {
                 return await _client.ExecuteAsync(new TdApi.GetChat
                 {
                     ChatId = id
+                });
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static async Task<TdApi.Messages> GetMessages(long chatId, int limit, int offset)
+        {
+            try
+            {
+                return await _client.ExecuteAsync(new TdApi.GetChatHistory
+                {
+                    ChatId = chatId,
+                    Limit = limit,
+                    Offset = offset,
                 });
             }
             catch

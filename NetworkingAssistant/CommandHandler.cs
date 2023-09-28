@@ -9,9 +9,11 @@ namespace NetworkingAssistant
         {
             new ParameterlessCommand(CommandId.Stop),
             new ParameterlessCommand(CommandId.Help),
+            new ParameterlessCommand(CommandId.ShowSelectedChatInfo),
+            new ParameterlessCommand(CommandId.SelectAllMessages),
 
-            new IntegerParameterCommand(CommandId.GetChats),
-            new IntegerParameterCommand(CommandId.SelectChat),
+            new LongParameterCommand(CommandId.GetChats),
+            new LongParameterCommand(CommandId.SelectChat),
 
             new StringParameterCommand(CommandId.ExportQuestions),
         };

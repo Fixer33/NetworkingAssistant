@@ -24,6 +24,7 @@
         {
             _isWorking = true;
             Config.Load();
+            AI.Initialize();
 
             await TelegramManager.Initialize();
 

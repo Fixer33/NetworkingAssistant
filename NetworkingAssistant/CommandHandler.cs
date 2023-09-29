@@ -11,11 +11,13 @@ namespace NetworkingAssistant
             new ParameterlessCommand(CommandId.Help),
             new ParameterlessCommand(CommandId.ShowSelectedChatInfo),
             new ParameterlessCommand(CommandId.SelectAllMessages),
+            new ParameterlessCommand(CommandId.LeaveOnlyQuestions),
 
             new LongParameterCommand(CommandId.GetChats),
             new LongParameterCommand(CommandId.SelectChat),
 
             new StringParameterCommand(CommandId.ExportQuestions),
+            new StringParameterCommand(CommandId.SendRegistrationPoll),
         };
 
 

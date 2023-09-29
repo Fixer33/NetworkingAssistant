@@ -2,7 +2,7 @@
 
 namespace NetworkingAssistant.Commands
 {
-    internal abstract class CommandBase
+    public abstract class CommandBase
     {
         public CommandId Id { get; private set; }
 
@@ -22,10 +22,12 @@ namespace NetworkingAssistant.Commands
         Help = 2,
         ShowSelectedChatInfo = 3,
         SelectAllMessages = 4,
+        LeaveOnlyQuestions = 5,
 
         GetChats = 15,
         SelectChat = 16,
 
         ExportQuestions = 50,
+        SendRegistrationPoll = 51,
     }
 }

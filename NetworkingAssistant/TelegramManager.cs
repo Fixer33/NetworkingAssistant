@@ -1,6 +1,6 @@
 ﻿using TdLib;
 using TdLib.Bindings;
-
+using static TdLib.TdApi;
 
 namespace NetworkingAssistant
 {
@@ -162,6 +162,27 @@ namespace NetworkingAssistant
             {
                 return null;
             }
+        }
+
+        public static void SendRegistrationPoll(string question)
+        {
+            var poll = new InputMessageContent.InputMessagePoll();
+            poll.Options = new string[]
+            {
+                "Прыйду",
+                "Магчыма прыйду",
+                "Не прыйду",
+                "Глядзець вынікі",
+            };
+            poll.Question = question;
+            poll.IsAnonymous = false;
+
+            _client.Send(new TdApi.SendMessage
+            {
+                ChatId = OperationBuffer.SelectedChat.Id,
+                DataType = new TdApi.PollType.PollTypeRegular().DataType,
+                InputMessageContent = poll,
+            });
         }
 
         public static void Dispose()

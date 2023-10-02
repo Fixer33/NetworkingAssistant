@@ -1,4 +1,6 @@
-﻿using OpenAI_API;
+﻿using NetworkingAssistant.Properties;
+using OpenAI_API;
+using OpenAI_API.Chat;
 
 namespace NetworkingAssistant
 {
@@ -7,6 +9,7 @@ namespace NetworkingAssistant
         public static bool Initialized { get; private set; }
 
         private static OpenAIAPI _api;
+        private static Conversation _conversation;
 
         public static void Initialize()
         {
@@ -14,6 +17,21 @@ namespace NetworkingAssistant
             Initialized = true;
         }
 
+        public static async Task<string> GenerateQuestions(string prePrompt = null)
+        {
+            if (_conversation == null)
+            {
+                _conversation = _api.Chat.CreateConversation();
+            }
 
+            _conversation.AppendUserInput(Resources.openai_initial);
+
+            if (prePrompt == null)
+            {
+                _conversation.AppendUserInput("Additionally: " + prePrompt);
+            }
+
+            return await _conversation.GetResponseFromChatbotAsync();
+        }
     }
 }

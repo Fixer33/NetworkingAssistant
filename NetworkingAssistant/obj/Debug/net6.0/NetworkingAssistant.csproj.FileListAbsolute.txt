@@ -45,3 +45,5 @@ F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\bin\Debug\net
 F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\bin\Debug\net6.0\OpenAI_API.dll
+F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\obj\Debug\net6.0\NetworkingAssistant.Properties.Resources.resources
+F:\Development\C# projects\NetworkingAssistant\NetworkingAssistant\obj\Debug\net6.0\NetworkingAssistant.csproj.GenerateResource.cache

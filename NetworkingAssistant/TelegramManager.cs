@@ -147,24 +147,25 @@ namespace NetworkingAssistant
             }
         }
 
-        public static async Task<TdApi.Messages> GetMessages(long chatId, int limit, int offset)
+        public static async Task<TdApi.Messages> GetMessages(long chatId, long lastMessageId = 0)
         {
             try
             {
                 return await _client.ExecuteAsync(new TdApi.GetChatHistory
                 {
                     ChatId = chatId,
-                    Limit = limit,
-                    Offset = offset,
+                    FromMessageId = lastMessageId,
+                    Limit = 100,
                 });
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
 
-        public static void SendRegistrationPoll(string question)
+        public static async Task<Message> SendRegistrationPoll(string question)
         {
             var poll = new InputMessageContent.InputMessagePoll();
             poll.Options = new string[]
@@ -176,13 +177,12 @@ namespace NetworkingAssistant
             };
             poll.Question = question;
             poll.IsAnonymous = false;
-
-            _client.Send(new TdApi.SendMessage
+            poll.Type = new PollType.PollTypeRegular()
             {
-                ChatId = OperationBuffer.SelectedChat.Id,
-                DataType = new TdApi.PollType.PollTypeRegular().DataType,
-                InputMessageContent = poll,
-            });
+                AllowMultipleAnswers = false,
+            };
+
+            return await _client.SendMessageAsync(OperationBuffer.SelectedChat.Id, 0, 0, null, null, poll);
         }
 
         public static void Dispose()

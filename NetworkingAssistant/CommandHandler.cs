@@ -12,6 +12,7 @@ namespace NetworkingAssistant
             new ParameterlessCommand(CommandId.ShowSelectedChatInfo),
             new ParameterlessCommand(CommandId.SelectAllMessages),
             new ParameterlessCommand(CommandId.LeaveOnlyQuestions),
+            new ParameterlessCommand(CommandId.GenerateQuestions),
 
             new LongParameterCommand(CommandId.GetChats),
             new LongParameterCommand(CommandId.SelectChat),

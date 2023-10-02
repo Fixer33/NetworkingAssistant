@@ -57,17 +57,17 @@ namespace NetworkingAssistant.Commands
         {
             if (System.IO.File.Exists(fileName))
             {
-                Console.WriteLine($"File {fileName}.list already exists!");
+                Console.WriteLine($"File {fileName}.json already exists!");
                 return;
             }
 
-            if (OperationBuffer.SelectedMessages.Count < 1)
+            if (OperationBuffer.SelectedMessages == null || OperationBuffer.SelectedMessages.Count < 1)
             {
                 Console.WriteLine("No messages selected");
                 return;
             }
 
-            System.IO.File.Create(fileName + ".list").Close();
+            System.IO.File.Create(fileName + ".json").Close();
 
             List<QuestionList.QuestionData> questions = new();
             var messages = OperationBuffer.SelectedMessages;
@@ -97,8 +97,8 @@ namespace NetworkingAssistant.Commands
                 Questions = questions.ToArray(),
             };
 
-            System.IO.File.WriteAllText(fileName + ".list", JsonConvert.SerializeObject(list));
-            Console.WriteLine("Questions exported to " + fileName + ".list");
+            System.IO.File.WriteAllText(fileName + ".json", JsonConvert.SerializeObject(list));
+            Console.WriteLine("Questions exported to " + fileName + ".json");
         }
 
         private static void SendRegistrationPoll(string question)
@@ -109,9 +109,9 @@ namespace NetworkingAssistant.Commands
                 return;
             }
 
-            TelegramManager.SendRegistrationPoll(question);
+            var msg = TelegramManager.SendRegistrationPoll(question);
 
-            Console.WriteLine("Poll created");
+            Console.WriteLine("Poll created with id " + msg.Id);
         }
 
         [Serializable]

@@ -1,4 +1,4 @@
-<h1> This is an automatisation for telegram chat. </h1>
+<h1> This is an automatization for telegram chat. </h1>
 Created for analysis and parsing of question that were already used in the past, exporting these questions into file and tracking registration of participants.
 
 <h2> Commands: </h2>
@@ -14,3 +14,14 @@ Created for analysis and parsing of question that were already used in the past,
     <li><b>export_questions</b> <i>*file_name*</i> - Exports all questions from selected chat into file. No extension needed</li>
     <li><b>send_reg_poll</b> <i>*headline*</i> - Send poll for registration. <i>*headline*</i> will be displayed on poll header. Shows created poll id</li>
 </ul>
+
+<h2> How to use: </h2>
+<ol>
+    <li>Open config.xml (if there is no such file, launch .exe and close it - it will appear) </li>
+    <li>Insert telegram api id and has (can be found here https://my.telegram.org/apps) </li>
+    <li>IF you want to use chat gpt, insert gpt key </li>
+    <li>Launch .exe and follow instructions</li>
+    <li>After message "Client started" you can use commands. help - for list of all commands </li>
+</ol>
+
+<h2>Download latest build <a href="https://github.com/Fixer33/NetworkingAssistant/releases/tag/TestBuild">here</a> </h2>

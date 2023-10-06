@@ -13,12 +13,14 @@ namespace NetworkingAssistant
             new ParameterlessCommand(CommandId.SelectAllMessages),
             new ParameterlessCommand(CommandId.LeaveOnlyQuestions),
             new ParameterlessCommand(CommandId.GenerateQuestions),
+            new ParameterlessCommand(CommandId.SelectLastRegPoll),
 
             new LongParameterCommand(CommandId.GetChats),
             new LongParameterCommand(CommandId.SelectChat),
 
             new StringParameterCommand(CommandId.ExportQuestions),
             new StringParameterCommand(CommandId.SendRegistrationPoll),
+            new StringParameterCommand(CommandId.SendTextToRegisteredUsersInPoll),
         };
 
 

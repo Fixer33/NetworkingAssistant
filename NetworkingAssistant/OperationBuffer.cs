@@ -1,4 +1,6 @@
 ﻿using TdLib;
+using static TdLib.TdApi;
+using static TdLib.TdApi.MessageContent;
 
 namespace NetworkingAssistant
 {
@@ -7,6 +9,8 @@ namespace NetworkingAssistant
         public static TdApi.Chat SelectedChat { get; private set; }
         public static List<TdApi.Message> SelectedMessages { get; private set; }
         public static List<string> SelectedStrings { get; private set; }
+        public static MessagePoll SelectedPoll { get; private set; }
+        public static Message SelectedPollMessage { get; private set; }
 
         public static bool SelectChat(TdApi.Chat chat)
         {
@@ -18,6 +22,18 @@ namespace NetworkingAssistant
 
             SelectedChat = chat;
             Console.WriteLine("Selected chat " + chat.Id);
+            return true;
+        }
+
+        public static bool SelectPoll(MessagePoll poll, Message message)
+        {
+            if (poll == null || message == null)
+            {
+                return false;
+            }
+
+            SelectedPoll = poll;
+            SelectedPollMessage = message;
             return true;
         }
 

@@ -24,12 +24,13 @@ namespace NetworkingAssistant.Commands
         SelectAllMessages = 4,
         LeaveOnlyQuestions = 5,
         GenerateQuestions = 6,
+        SelectLastRegPoll = 7,
 
         GetChats = 15,
         SelectChat = 16,
-        SelectMessageHundred = 17,
 
         ExportQuestions = 50,
         SendRegistrationPoll = 51,
+        SendTextToRegisteredUsersInPoll = 52,
     }
 }

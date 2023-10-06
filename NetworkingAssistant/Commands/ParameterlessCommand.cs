@@ -19,6 +19,7 @@ namespace NetworkingAssistant.Commands
                 CommandId.SelectAllMessages => @"select_all_messages - Select all messages from selected chat. Will print out the amount. You should repeat this command a few times until number of selected messages stops changing",
                 CommandId.LeaveOnlyQuestions => @"leave_only_questions - Leave only questions in message buffer",
                 CommandId.GenerateQuestions => @"generate_questions - Generate messages in chatgpt. Places them into string buffer",
+                CommandId.SelectLastRegPoll => @"select_last_reg_poll - Selects last registration poll in selected messages",
 
                 _ => "",
             };
@@ -34,6 +35,7 @@ namespace NetworkingAssistant.Commands
                 CommandId.SelectAllMessages => @"^select_all_messages$",
                 CommandId.LeaveOnlyQuestions => @"^leave_only_questions$",
                 CommandId.GenerateQuestions => @"^generate_questions$",
+                CommandId.SelectLastRegPoll => @"^select_last_reg_poll$",
 
                 _ => "",
             };
@@ -62,6 +64,9 @@ namespace NetworkingAssistant.Commands
                     break;
                 case CommandId.GenerateQuestions:
                     GenerateQuestions();
+                    break;
+                case CommandId.SelectLastRegPoll:
+                    SelectLastRegPoll();
                     break;
             }
 
@@ -189,6 +194,51 @@ namespace NetworkingAssistant.Commands
             }
 
             Console.WriteLine(response);
+        }
+
+        private static async void SelectLastRegPoll()
+        {
+            var messages = OperationBuffer.SelectedMessages;
+            if (messages == null || messages.Count <= 0)
+            {
+                Console.WriteLine("No messages selected");
+                return;
+            }
+
+            MessageContent.MessagePoll poll = null;
+            Message pollMessage = null;
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Content is MessageContent.MessagePoll)
+                {
+                    poll = messages[i].Content as MessageContent.MessagePoll;
+                    if (poll == null || poll.Poll == null || poll.Poll.Options.Length != 4 || poll.Poll.Question.StartsWith('`') == false)
+                    {
+                        poll = null;
+                        continue;
+                    }
+
+                    pollMessage = messages[i];
+                    break;
+                }
+            }
+
+            if (poll == null || pollMessage == null)
+            {
+                Console.WriteLine("No poll with such id found");
+                return;
+            }
+
+            if (OperationBuffer.SelectPoll(poll, pollMessage))
+            {
+                Console.WriteLine($"Selected poll with {poll.Poll.TotalVoterCount} voters and question {poll.Poll.Question}");
+            }
+            else
+            {
+                Console.WriteLine("No poll existing");
+            }
+
+
         }
     }
 }

@@ -185,6 +185,30 @@ namespace NetworkingAssistant
             return await _client.SendMessageAsync(OperationBuffer.SelectedChat.Id, 0, 0, null, null, poll);
         }
 
+        public static async Task<Users> GetPollVoters(long chatId, long messageId, int optionId)
+        {
+            return await _client.ExecuteAsync(new TdApi.GetPollVoters
+            {
+                ChatId = chatId,
+                MessageId = messageId,
+                OptionId = optionId,
+                Limit = 100,
+            });
+        }
+
+        public static async Task SendTextToUser(long userId, string text)
+        {
+            var msg = new InputMessageContent.InputMessageText();
+            msg.Text = new FormattedText();
+            msg.Text.Text = text;
+
+            var chat = await _client.ExecuteAsync(new TdApi.CreatePrivateChat
+            {
+                UserId = userId,
+            });
+            await _client.SendMessageAsync(chat.Id, 0, 0, null, null, msg);
+        }
+
         public static void Dispose()
         {
             _client.Dispose();

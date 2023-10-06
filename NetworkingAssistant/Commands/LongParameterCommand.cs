@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static TdLib.TdApi;
 
 namespace NetworkingAssistant.Commands
 {
@@ -19,7 +20,7 @@ namespace NetworkingAssistant.Commands
             {
                 CommandId.GetChats => "get_chats *chat_limit* - Lists all available to current user chats. *chat_limit* set maximum amount of chats listed",
                 CommandId.SelectChat => @"select_chat *id* - Selects chat with *id*. Saves in buffer for further operations",
-
+                
                 _ => "",
             };
         }
@@ -59,6 +60,7 @@ namespace NetworkingAssistant.Commands
                 case CommandId.SelectChat:
                     SelectChat(parameter);
                     break;
+
             }
         }
 
@@ -78,5 +80,7 @@ namespace NetworkingAssistant.Commands
         {
             OperationBuffer.SelectChat(await TelegramManager.GetChannel(id));
         }
+
+      
     }
 }

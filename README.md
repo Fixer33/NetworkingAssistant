@@ -13,6 +13,8 @@ Created for analysis and parsing of question that were already used in the past,
     <li><b>select_chat</b> <i>*id*</i> - Selects chat with <i>*id*</i>. Saves in buffer for further operations</li>
     <li><b>export_questions</b> <i>*file_name*</i> - Exports all questions from selected chat into file. No extension needed</li>
     <li><b>send_reg_poll</b> <i>*headline*</i> - Send poll for registration. <i>*headline*</i> will be displayed on poll header. Shows created poll id</li>
+    <li><b>select_last_reg_poll</b> - Selects last registration poll in selected messages</li>
+    <li><b>send_text_to_poll_users</b> <i>*text*</i> - Send <i>*text*</i> to all users who voted first two options in selected registration poll</li>
 </ul>
 
 <h2> How to use: </h2>

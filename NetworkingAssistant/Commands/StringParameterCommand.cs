@@ -16,6 +16,7 @@ namespace NetworkingAssistant.Commands
             {
                 CommandId.ExportQuestions => "export_questions *file_name* - Exports all questions from selected chat into file. No extension needed",
                 CommandId.SendRegistrationPoll => "send_reg_poll *headline* - Send poll for registration. *headline* will be displayed on poll header. Shows created poll id",
+                CommandId.SendTextToRegisteredUsersInPoll => "send_text_to_poll_users *text* - Send *text* to all users who voted first two options in selected registration poll",
 
                 _ => "",
             };
@@ -27,6 +28,7 @@ namespace NetworkingAssistant.Commands
             {
                 CommandId.ExportQuestions => @"^export_questions ([\d\w]+)$",
                 CommandId.SendRegistrationPoll => @"^send_reg_poll (.+)$",
+                CommandId.SendTextToRegisteredUsersInPoll => @"^send_text_to_poll_users (.+)$",
 
                 _ => "",
             };
@@ -49,6 +51,9 @@ namespace NetworkingAssistant.Commands
                     break;
                 case CommandId.SendRegistrationPoll:
                     SendRegistrationPoll(parameter);
+                    break;
+                case CommandId.SendTextToRegisteredUsersInPoll:
+                    SendTextToUsersFromRegPoll(parameter);
                     break;
             }
         }
@@ -109,9 +114,50 @@ namespace NetworkingAssistant.Commands
                 return;
             }
 
-            var msg = TelegramManager.SendRegistrationPoll(question);
+            var msg = TelegramManager.SendRegistrationPoll('`' + question);
 
-            Console.WriteLine("Poll created with id " + msg.Id);
+            Console.WriteLine("Poll created with id " + msg.Result.Id);
+        }
+
+        private static async void SendTextToUsersFromRegPoll(string text)
+        {
+            if (OperationBuffer.SelectedPoll == null || OperationBuffer.SelectedPollMessage == null)
+            {
+                Console.WriteLine("No poll selected");
+                return;
+            }
+
+            if (OperationBuffer.SelectedChat == null)
+            {
+                Console.WriteLine("No chat selected");
+                return;
+            }
+
+            int voterSentCount = 0;
+
+            try
+            {
+                var users = await TelegramManager.GetPollVoters(OperationBuffer.SelectedChat.Id, OperationBuffer.SelectedPollMessage.Id, 0);
+                for (int i = 0; i < users.UserIds.Length; i++)
+                {
+                    await TelegramManager.SendTextToUser(users.UserIds[i], text);
+                    voterSentCount++;
+                }
+
+                users = await TelegramManager.GetPollVoters(OperationBuffer.SelectedChat.Id, OperationBuffer.SelectedPollMessage.Id, 1);
+                for (int i = 0; i < users.UserIds.Length; i++)
+                {
+                    await TelegramManager.SendTextToUser(users.UserIds[i], text);
+                    voterSentCount++;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An error appeared in sending messages! Amount of successfull sends: {voterSentCount}. After that got error: {e.Message}");
+                return;
+            }
+            Console.WriteLine($"Messages were sent to {voterSentCount} users");
+
         }
 
         [Serializable]

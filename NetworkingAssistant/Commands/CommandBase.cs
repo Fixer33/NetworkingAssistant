@@ -25,9 +25,13 @@ namespace NetworkingAssistant.Commands
         LeaveOnlyQuestions = 5,
         GenerateQuestions = 6,
         SelectLastRegPoll = 7,
+        ImportPersonFile = 8,
+        MovePeople = 9,
+        PrintTableOrder = 10,
 
         GetChats = 15,
         SelectChat = 16,
+        SetTableCount = 17,
 
         ExportQuestions = 50,
         SendRegistrationPoll = 51,

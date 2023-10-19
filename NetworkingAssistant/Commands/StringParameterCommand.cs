@@ -36,9 +36,15 @@ namespace NetworkingAssistant.Commands
 
         public override void HandleCommand(Match match)
         {
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 100));
+            Console.WriteLine();
             if (match.Groups.Count != 2)
             {
                 Console.WriteLine("Wrong parameter count for command " + Id.ToString());
+                Console.WriteLine();
+                Console.WriteLine(new string('-', 100));
+                Console.WriteLine();
                 return;
             }
 
@@ -56,6 +62,9 @@ namespace NetworkingAssistant.Commands
                     SendTextToUsersFromRegPoll(parameter);
                     break;
             }
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 100));
+            Console.WriteLine();
         }
 
         private static async void ExportQuestions(string fileName)

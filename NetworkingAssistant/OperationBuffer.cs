@@ -1,4 +1,5 @@
 ﻿using TdLib;
+using static NetworkingAssistant.TableFormer;
 using static TdLib.TdApi;
 using static TdLib.TdApi.MessageContent;
 
@@ -83,6 +84,34 @@ namespace NetworkingAssistant
 
             SelectedStrings = strings;
             return true;
+        }
+
+        public static class TableForming
+        {
+            public static int TableCount { get; private set; } = 0;
+            public static List<Person> People { get; private set; } = new();
+            public static TablePositions TablePositions { get; private set; }
+
+            public static void SetTableCount(int tables)
+            {
+                TableCount = tables;
+            }
+
+            public static bool SetPeople(List<Person> people)
+            {
+                if (people == null)
+                {
+                    return false;
+                }
+
+                People = people;
+                return true;
+            }
+
+            public static void SetTablePositions(TablePositions positions)
+            {
+                TablePositions = positions;
+            }
         }
     }
 }

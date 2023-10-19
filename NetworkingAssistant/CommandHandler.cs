@@ -14,9 +14,13 @@ namespace NetworkingAssistant
             new ParameterlessCommand(CommandId.LeaveOnlyQuestions),
             new ParameterlessCommand(CommandId.GenerateQuestions),
             new ParameterlessCommand(CommandId.SelectLastRegPoll),
+            new ParameterlessCommand(CommandId.ImportPersonFile),
+            new ParameterlessCommand(CommandId.MovePeople),
+            new ParameterlessCommand(CommandId.PrintTableOrder),
 
             new LongParameterCommand(CommandId.GetChats),
             new LongParameterCommand(CommandId.SelectChat),
+            new LongParameterCommand(CommandId.SetTableCount),
 
             new StringParameterCommand(CommandId.ExportQuestions),
             new StringParameterCommand(CommandId.SendRegistrationPoll),

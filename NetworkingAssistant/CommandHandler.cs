@@ -17,6 +17,8 @@ namespace NetworkingAssistant
             new ParameterlessCommand(CommandId.ImportPersonFile),
             new ParameterlessCommand(CommandId.MovePeople),
             new ParameterlessCommand(CommandId.PrintTableOrder),
+            new ParameterlessCommand(CommandId.SelectLastMessageText),
+            new ParameterlessCommand(CommandId.SendTextToPollUsers),
 
             new LongParameterCommand(CommandId.GetChats),
             new LongParameterCommand(CommandId.SelectChat),

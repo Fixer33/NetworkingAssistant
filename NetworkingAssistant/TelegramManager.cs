@@ -123,7 +123,7 @@ namespace NetworkingAssistant
                     ChatId = chatId
                 });
 
-                if (chat.Type is TdApi.ChatType.ChatTypeSupergroup or TdApi.ChatType.ChatTypeBasicGroup)
+                if (chat.Type is TdApi.ChatType.ChatTypeSupergroup or TdApi.ChatType.ChatTypeBasicGroup or TdApi.ChatType.ChatTypePrivate)
                 {
                     result.Add(chat);
                 }
@@ -201,6 +201,18 @@ namespace NetworkingAssistant
             var msg = new InputMessageContent.InputMessageText();
             msg.Text = new FormattedText();
             msg.Text.Text = text;
+
+            var chat = await _client.ExecuteAsync(new TdApi.CreatePrivateChat
+            {
+                UserId = userId,
+            });
+            await _client.SendMessageAsync(chat.Id, 0, 0, null, null, msg);
+        }
+
+        public static async Task SendTextToUser(long userId, FormattedText text)
+        {
+            var msg = new InputMessageContent.InputMessageText();
+            msg.Text = text;
 
             var chat = await _client.ExecuteAsync(new TdApi.CreatePrivateChat
             {

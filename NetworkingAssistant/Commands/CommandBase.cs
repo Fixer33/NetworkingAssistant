@@ -28,6 +28,8 @@ namespace NetworkingAssistant.Commands
         ImportPersonFile = 8,
         MovePeople = 9,
         PrintTableOrder = 10,
+        SelectLastMessageText = 11,
+        SendTextToPollUsers = 12,
 
         GetChats = 15,
         SelectChat = 16,

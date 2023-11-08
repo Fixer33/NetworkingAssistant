@@ -7,6 +7,7 @@ namespace NetworkingAssistant
 {
     internal static class OperationBuffer
     {
+        public static FormattedText SelectedText { get; private set; }
         public static TdApi.Chat SelectedChat { get; private set; }
         public static List<TdApi.Message> SelectedMessages { get; private set; }
         public static List<string> SelectedStrings { get; private set; }
@@ -84,6 +85,11 @@ namespace NetworkingAssistant
 
             SelectedStrings = strings;
             return true;
+        }
+
+        public static void SelectText(FormattedText text)
+        {
+            SelectedText = text;
         }
 
         public static class TableForming

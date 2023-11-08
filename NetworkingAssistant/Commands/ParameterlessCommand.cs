@@ -25,6 +25,8 @@ namespace NetworkingAssistant.Commands
                 CommandId.ImportPersonFile => @"import_person_file - Selects last registration poll in selected messages",
                 CommandId.MovePeople => @"move_people - Selects last registration poll in selected messages",
                 CommandId.PrintTableOrder => @"print_table_order - Selects last registration poll in selected messages",
+                CommandId.SendTextToPollUsers => @"send_text_to_poll_users - Sends selected formatted text to poll users",
+                CommandId.SelectLastMessageText => @"select_last_message_text - Selects formatted text from last selected message",
 
                 _ => "",
             };
@@ -44,6 +46,8 @@ namespace NetworkingAssistant.Commands
                 CommandId.ImportPersonFile => @"import_person_file",
                 CommandId.MovePeople => @"move_people",
                 CommandId.PrintTableOrder => @"print_table_order",
+                CommandId.SendTextToPollUsers => @"send_text_to_poll_users",
+                CommandId.SelectLastMessageText => @"select_last_message_text",
 
                 _ => "",
             } + "$";
@@ -87,6 +91,12 @@ namespace NetworkingAssistant.Commands
                     break;
                 case CommandId.PrintTableOrder:
                     PrintTableOrder();
+                    break;
+                case CommandId.SelectLastMessageText:
+                    SelectLastMessageText();
+                    break;
+                case CommandId.SendTextToPollUsers:
+                    SendSelectedTextToPollUsers();
                     break;
             }
             Console.WriteLine();
@@ -234,7 +244,7 @@ namespace NetworkingAssistant.Commands
                 if (messages[i].Content is MessageContent.MessagePoll)
                 {
                     poll = messages[i].Content as MessageContent.MessagePoll;
-                    if (poll == null || poll.Poll == null || poll.Poll.Options.Length != 4 || poll.Poll.Question.StartsWith('`') == false)
+                    if (poll == null || poll.Poll == null || poll.Poll.Options.Length != 4 || poll.Poll.Question.StartsWith('Р') == false)
                     {
                         poll = null;
                         continue;
@@ -369,6 +379,77 @@ namespace NetworkingAssistant.Commands
                     }
                 }
             }
+        }
+
+        private static void SelectLastMessageText()
+        {
+            if (OperationBuffer.SelectedMessages == null || OperationBuffer.SelectedMessages.Count <= 0)
+            {
+                Console.WriteLine("No messages selected");
+                return;
+            }
+
+            var messages = OperationBuffer.SelectedMessages;
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Content is MessageContent.MessageText text)
+                {
+                    if (text == null)
+                    {
+                        continue;
+                    }
+
+                    OperationBuffer.SelectText(text.Text);
+                    Console.WriteLine("Formatted text selected");
+                    break;
+                }
+            }
+        }
+
+        private static async void SendSelectedTextToPollUsers()
+        {
+            if (OperationBuffer.SelectedText == null)
+            {
+                Console.WriteLine("No text selected");
+                return;
+            }
+
+            if (OperationBuffer.SelectedPoll == null || OperationBuffer.SelectedPollMessage == null)
+            {
+                Console.WriteLine("No poll selected");
+                return;
+            }
+
+            if (OperationBuffer.SelectedChat == null)
+            {
+                Console.WriteLine("No chat selected");
+                return;
+            }
+
+            int voterSentCount = 0;
+
+            try
+            {
+                var users = await TelegramManager.GetPollVoters(OperationBuffer.SelectedChat.Id, OperationBuffer.SelectedPollMessage.Id, 0);
+                for (int i = 0; i < users.UserIds.Length; i++)
+                {
+                    await TelegramManager.SendTextToUser(users.UserIds[i], OperationBuffer.SelectedText);
+                    voterSentCount++;
+                }
+
+                users = await TelegramManager.GetPollVoters(OperationBuffer.SelectedChat.Id, OperationBuffer.SelectedPollMessage.Id, 1);
+                for (int i = 0; i < users.UserIds.Length; i++)
+                {
+                    await TelegramManager.SendTextToUser(users.UserIds[i], OperationBuffer.SelectedText);
+                    voterSentCount++;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An error appeared in sending messages! Amount of successfull sends: {voterSentCount}. After that got error: {e.Message}");
+                return;
+            }
+            Console.WriteLine($"Messages were sent to {voterSentCount} users");
         }
     }
 }

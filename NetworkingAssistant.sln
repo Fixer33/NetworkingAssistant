@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkingAssistant", "NetworkingAssistant\NetworkingAssistant.csproj", "{2E00BA57-F4E2-42AE-A489-245071B35F6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkingAssistant", "NetworkingAssistant\NetworkingAssistant.csproj", "{2E00BA57-F4E2-42AE-A489-245071B35F6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableAssistant.Android", "PortableAssistant\PortableAssistant.Android\PortableAssistant.Android.csproj", "{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableAssistant", "PortableAssistant\PortableAssistant\PortableAssistant.csproj", "{12EC1581-60BE-4634-9986-5EA4D6EDBFFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,16 @@ Global
 		{2E00BA57-F4E2-42AE-A489-245071B35F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E00BA57-F4E2-42AE-A489-245071B35F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E00BA57-F4E2-42AE-A489-245071B35F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950C7BD8-838B-4DA9-BA42-D8AFC44F9E50}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{12EC1581-60BE-4634-9986-5EA4D6EDBFFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12EC1581-60BE-4634-9986-5EA4D6EDBFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12EC1581-60BE-4634-9986-5EA4D6EDBFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12EC1581-60BE-4634-9986-5EA4D6EDBFFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
